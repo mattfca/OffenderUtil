@@ -44,8 +44,8 @@ var myClient = &http.Client{Timeout: 10 * time.Second}
 
 var apiKey string
 
-// setAPIKey will set the api key
-func setAPIKey(a string) {
+// SetAPIKey will set the api key
+func SetAPIKey(a string) {
 	apiKey = a
 }
 

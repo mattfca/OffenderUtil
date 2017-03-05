@@ -16,6 +16,7 @@ import (
 )
 
 func main() {
+	OffenderUtil.SetAPIKey("YOUR-KEY-HERE")
 
 	zipOffenders := OffenderUtil.SearchByZip("90210")
 	fmt.Printf("Search Type: %s \nCount: %d\n\n", zipOffenders.Searchtype, len(zipOffenders.Offenders))
