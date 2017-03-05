@@ -42,10 +42,15 @@ type Offenders struct {
 
 var myClient = &http.Client{Timeout: 10 * time.Second}
 
+var apiKey string
+
+// setAPIKey will set the api key
+func setAPIKey(a string) {
+	apiKey = a
+}
+
 // getJSON will make a request and return the response as a struct supplied
 func getJSON(params string, target interface{}) error {
-	apiKey := "YOUR-KEY-HERE"
-
 	url := fmt.Sprintf("http://services.familywatchdog.us/rest/json.asp?key=%s&lite=0%s", apiKey, params)
 
 	r, err := myClient.Get(url)
