@@ -97,7 +97,7 @@ type Offender struct {
 	PossibleNicknames []PossibleNicknames `json:"possiblenicknames"`
 }
 
-var myClient = &http.Client{Timeout: 10 * time.Second}
+var myClient = &http.Client{Timeout: 120 * time.Second}
 
 var apiKey string
 
