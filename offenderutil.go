@@ -128,7 +128,9 @@ func SearchByZip(zip string) Offenders {
 
 	// getJSON will return the offenders JSON
 	err := getJSON(params, &records)
-	log.Println(err)
+	if err != nil {
+		log.Println(err)
+	}
 
 	return Offenders(records)
 }
