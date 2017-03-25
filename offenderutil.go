@@ -3,6 +3,7 @@ package OffenderUtil
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 	"time"
 )
@@ -15,32 +16,85 @@ type Offenders struct {
 	Offenders  []Offender `json:"offenders"`
 }
 
-// Offender is a single offender
-type Offender struct {
-	OffenderID string `json:"offenderid"`
-	Photo      string `json:"photo"`
+// Aliases is offender aliases
+type Aliases struct {
 	Name       string `json:"name"`
 	FirstName  string `json:"firstname"`
 	MiddleName string `json:"middlename"`
 	LastName   string `json:"lastname"`
 	Suffix     string `json:"suffix"`
-	Dob        string `json:"dob"`
-	Age        string `json:"age"`
-	Sex        string `json:"sex"`
-	Race       string `json:"race"`
-	Hair       string `json:"hair"`
-	Eye        string `json:"eye"`
-	Height     string `json:"height"`
-	Weight     string `json:"weight"`
-	Street1    string `json:"street1"`
-	Street2    string `json:"street2"`
-	City       string `json:"city"`
-	State      string `json:"state"`
-	Zipcode    string `json:"zipcode"`
-	County     string `json:"county"`
-	MatchType  string `json:"matchtype"`
-	Latitude   string `json:"latitude"`
-	Longitude  string `json:"longitude"`
+}
+
+// OtherAddresses are additional addresses
+type OtherAddresses struct {
+	Type      string `json:"type"`
+	Name      string `json:"name"`
+	Street1   string `json:"street1"`
+	Street2   string `json:"street2"`
+	City      string `json:"city"`
+	State     string `json:"state"`
+	Zipcode   string `json:"zipcode"`
+	MatchType string `json:"matchtype"`
+	Latitude  string `json:"latitude"`
+	Longitude string `json:"longitude"`
+}
+
+// Convictions are the charges
+type Convictions struct {
+	Charge          string `json:"charge"`
+	Statute         string `json:"statute"`
+	VictimAge       string `json:"victimage"`
+	VictimSex       string `json:"victimsex"`
+	ConvictionState string `json:"convictionstate"`
+}
+
+// Markings are additional markings
+type Markings struct {
+	Description string `json:"description"`
+}
+
+// Birthdates are unknown
+type Birthdates struct {
+	Dob string `json:"dob"`
+}
+
+// PossibleNicknames are nicknames
+type PossibleNicknames struct {
+	FirstName string `json:"firstname"`
+}
+
+// Offender is a single offender
+type Offender struct {
+	OffenderID        string              `json:"offenderid"`
+	Photo             string              `json:"photo"`
+	Name              string              `json:"name"`
+	FirstName         string              `json:"firstname"`
+	MiddleName        string              `json:"middlename"`
+	LastName          string              `json:"lastname"`
+	Suffix            string              `json:"suffix"`
+	Dob               string              `json:"dob"`
+	Age               string              `json:"age"`
+	Sex               string              `json:"sex"`
+	Race              string              `json:"race"`
+	Hair              string              `json:"hair"`
+	Eye               string              `json:"eye"`
+	Height            string              `json:"height"`
+	Weight            string              `json:"weight"`
+	Street1           string              `json:"street1"`
+	Street2           string              `json:"street2"`
+	City              string              `json:"city"`
+	State             string              `json:"state"`
+	Zipcode           string              `json:"zipcode"`
+	County            string              `json:"county"`
+	MatchType         string              `json:"matchtype"`
+	Latitude          string              `json:"latitude"`
+	Longitude         string              `json:"longitude"`
+	Aliases           []Aliases           `json:"aliases"`
+	OtherAddresses    []OtherAddresses    `json:"otheraddresses"`
+	Convictions       []Convictions       `json:"convictions"`
+	Markings          []Markings          `json:"markings"`
+	Birthdates        []Birthdates        `json:"birthdates"`
+	PossibleNicknames []PossibleNicknames `json:"possiblenicknames"`
 }
 
 var myClient = &http.Client{Timeout: 10 * time.Second}
@@ -73,7 +127,8 @@ func SearchByZip(zip string) Offenders {
 	records := Offenders{}
 
 	// getJSON will return the offenders JSON
-	getJSON(params, &records)
+	err := getJSON(params, &records)
+	log.Println(err)
 
 	return Offenders(records)
 }
